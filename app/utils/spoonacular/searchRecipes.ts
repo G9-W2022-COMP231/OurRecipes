@@ -20,6 +20,10 @@ export interface SearchRecipesByTitleResult {
   results: RecipeDetails[];
 }
 
+/**
+ * Make a request to the Spoonacular API endpoint for recipes with the given
+ * title
+ */
 export const searchRecipesByTitle = async (
   search: string,
   options: SearchRecipesByTitleOptions = {},
