@@ -45,6 +45,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       app_name: our-recipes-kitchen-surfers
+      environment: Heroku main branch
     secrets:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
