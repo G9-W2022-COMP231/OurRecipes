@@ -37,7 +37,8 @@ export const makeRequest = async <Data>(
 
   if (quotaUsedByRequest > 0) {
     console.log(
-      `[Spoonacular] Used quota ${quotaUsedByRequest} pts (${quotaLeftToday} pts left)`,
+      `[Spoonacular] Used quota ${quotaUsedByRequest.toFixed(3)} pts ` +
+        `(${quotaLeftToday.toFixed(3)} pts left)`,
     );
   }
 
