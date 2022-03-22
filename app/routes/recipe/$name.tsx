@@ -27,7 +27,7 @@ export default function name() {
       </head>
       {/*Recipe Title*/}
       <div className="d-flex justify-content-center">
-        <h1>Recipe Title</h1>
+        <h1 id="recipeTitle">Recipe Title</h1>
       </div>
 
       {/*this <Image /> tag is from remix-image
