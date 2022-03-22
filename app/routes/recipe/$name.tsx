@@ -5,6 +5,7 @@ import { Badge, ListGroup, Stack } from "react-bootstrap";
 import { Image } from "remix-image";
 
 /*
+// preparation for loading data into the page for the person creating the response
 export const loader: LoaderFunction = ({ params }) => {
   return (
 
@@ -19,8 +20,8 @@ export default function name() {
         <title>Recipe Details</title>
       </head>
       {/*Recipe Title*/}
-      <div>
-        <h1> Recipe Title</h1>
+      <div className="d-flex justify-content-center">
+        <h1>Recipe Title</h1>
       </div>
       <Stack gap={2} direction="horizontal" className="col-md-5 mx-auto">
         <div>
@@ -47,33 +48,12 @@ export default function name() {
                 <div className="fw-bold">Cooking Tools</div>
               </div>
               <ListGroup>
-                {/*Cooking Tool*/}
-                <ListGroup.Item
-                  as="li"
-                  className="d-flex justify-content-between align-items-start"
-                >
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Tool</div>
-                    Description
-                  </div>
-                  <Badge bg="primary" pill>
-                    Amount
-                  </Badge>
-                </ListGroup.Item>
-                {/*Cooking Tool*/}
-                <ListGroup.Item
-                  as="li"
-                  className="d-flex justify-content-between align-items-start"
-                >
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Tool</div>
-                    Description
-                  </div>
-                  <Badge bg="primary" pill>
-                    Amount
-                  </Badge>
-                </ListGroup.Item>
-                {/*Cooking Tool*/}
+                {/*Cooking Tools*/}
+                {/*For the person creating the response,
+                  make it so that it will create the multiple listgroup.items
+                  so that it is more adaptive and does not
+                  require the amount of items to be hardcoded
+                  */}
                 <ListGroup.Item
                   as="li"
                   className="d-flex justify-content-between align-items-start"
@@ -91,9 +71,36 @@ export default function name() {
           </ListGroup>
         </div>
       </Stack>
+      {/*this <Image /> tag is from remix-image
+      it's easier to use to add in responsive images
+      Here's a website that shows its usage
+      https://bestofreactjs.com/repo/Josh-McFarlin-remix-image
+      I recommend to find other sources if you don't understand this part*/}
       <Image />
       <Stack gap={2} direction="horizontal" className="col-md-5 mx-auto">
-        <h3>Ingredients</h3>
+        <div>
+          <h2>Ingredients</h2>
+          <ListGroup variant="flush">
+            {/*For the person creating the response,
+            make it so that it will create the multiple listgroup.items
+            so that it is more adaptive and does not
+            require the amount of items to be hardcoded
+            */}
+            <ListGroup.Item> x amount of ingredient</ListGroup.Item>
+          </ListGroup>
+        </div>
+
+        <div>
+          <h2>Instructions</h2>
+          <ListGroup variant="flush">
+            {/*For the person creating the response,
+            make it so that it will create the multiple listgroup.items
+            so that it is more adaptive and does not
+            require the amount of items to be hardcoded
+            */}
+            <ListGroup.Item>instruction here</ListGroup.Item>
+          </ListGroup>
+        </div>
       </Stack>
     </Stack>
   );
