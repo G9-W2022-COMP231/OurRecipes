@@ -20,18 +20,6 @@ export interface SearchRecipesByTitleResult {
   results: RecipeDetails[];
 }
 
-export interface SearchRecipesByQueryOptions {
-  //The number of expected results (between 1 and 100)
-  number?: number;
-}
-
-export interface SearchRecipesByQueryResult {
-  offset: number;
-  number: number;
-  results: RecipeDetails[];
-  totalResults: number;
-}
-
 /**
  * Make a request to the Spoonacular API endpoint for recipes with the given
  * title
@@ -56,31 +44,6 @@ export const searchRecipesByTitle = async (
   params.set("sort", "popularity");
 
   return makeRequest<SearchRecipesByTitleResult>(
-    "/recipes/complexSearch",
-    params,
-  );
-};
-
-/**
- * Make a request to the Spoonacular API to search for recipe with any given query.
- */
-export const searchRecipesByQuery = async (
-  search: string,
-  options: SearchRecipesByQueryOptions = {},
-) => {
-  const params = new URLSearchParams();
-  params.set("query", search);
-
-  // sets number of expected results
-  if (options.number && options.number > 0 && options.number < 101) {
-    params.set("number", options.number.toString()); // 0.01 points per number
-  }
-
-  params.set("instructionsRequired", "true"); // 0.025 points
-  params.set("addRecipeInformation", "true"); // 0.025 points?
-  params.set("sort", "popularity");
-
-  return makeRequest<SearchRecipesByQueryResult>(
     "/recipes/complexSearch",
     params,
   );
