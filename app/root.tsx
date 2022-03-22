@@ -1,6 +1,7 @@
 import { CatchBoundaryComponent } from "@remix-run/react/routeModules";
 import { ReactNode } from "react";
 import SSRProvider from "react-bootstrap/SSRProvider";
+
 import type { MetaFunction } from "remix";
 import {
   ErrorBoundaryComponent,
@@ -15,7 +16,6 @@ import {
 } from "remix";
 import rootStyles from "~/styles/root.css";
 import Navigation from "./components/navigation";
-import SearchByTitle from "./components/searchBar";
 
 /**
  * Meta tags to add; can be overridden by child routes
@@ -58,13 +58,15 @@ function Document({ children }: DocumentProps): JSX.Element {
       </head>
       <body>
         <SSRProvider>
-          <Navigation />
-          <SearchByTitle />
+          <Navigation/>
+          
           {children}
-        </SSRProvider>
+          </SSRProvider>
+
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
+          <LiveReload />
+          
       </body>
     </html>
   );

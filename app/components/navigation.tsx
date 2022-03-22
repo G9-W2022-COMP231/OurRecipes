@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "remix";
+import SearchByTitle from "./searchBar";
 
 export default function Navigation(): JSX.Element {
+  const [searchValue,setSearchValue]=useState("")
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -10,14 +13,7 @@ export default function Navigation(): JSX.Element {
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <NavLink to="/" className="nav-link">
-              Something
-            </NavLink>
-            <NavLink to="/" className="nav-link">
-              Something
-            </NavLink>
-          </Nav>
+    
           <Nav className="ms-auto">
             <NavLink to="/login" className="nav-link">
               Login
@@ -32,13 +28,12 @@ export default function Navigation(): JSX.Element {
             <NavLink to="/profile/:id" className="nav-link">
               Profile
             </NavLink>
-            <NavLink to="/logout/:id" className="nav-link">
-              Logout
-            </NavLink>
+          
           </Nav>
   ;*/}
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
   );
 }
