@@ -1,7 +1,13 @@
 // preparation for loading data into the page
 //import type { LoaderFunction } from "remix";
 
-import { Badge, ListGroup, Stack } from "react-bootstrap";
+import {
+  Badge,
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Stack,
+} from "react-bootstrap";
 import { Image } from "remix-image";
 
 /*
@@ -14,7 +20,7 @@ export const loader: LoaderFunction = ({ params }) => {
 */
 export default function name() {
   return (
-    <Stack gap={2} direction="vertical" className="col-md-5 mx-auto">
+    <Stack gap={2} direction="vertical">
       {/* Here is the title for the page */}
       <head>
         <title>Recipe Details</title>
@@ -23,31 +29,26 @@ export default function name() {
       <div className="d-flex justify-content-center">
         <h1>Recipe Title</h1>
       </div>
-      <Stack gap={2} direction="horizontal" className="col-md-5 mx-auto">
-        <div>
-          <ListGroup as="ul">
-            {/*Recipe Cooking Time ListGroup  Item*/}
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <div className="fw-bold">Cooking Time</div>
-              </div>
-              <Badge bg="primary" pill>
-                x minutes/hours
-              </Badge>
-            </ListGroup.Item>
 
-            {/*Recipe Cooking Tools ListGroup Item*/}
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <div className="fw-bold">Cooking Tools</div>
-              </div>
-              <ListGroup>
+      {/*this <Image /> tag is from remix-image
+      it's easier to use to add in responsive images
+      Here's a website that shows its usage
+      https://bestofreactjs.com/repo/Josh-McFarlin-remix-image
+      I recommend to find other sources if you don't understand this part*/}
+      <div className="d-flex justify-content-center">
+        <Image />
+      </div>
+
+      <div>
+        {/*Cooking Tools and Cooking Time Container*/}
+        <Container>
+          <ListGroup as="ol" className="d-flex" variant="flush">
+            <ListGroup.Item as="li">
+              <div className="fw-bold">Cooking Tools</div>
+              <ListGroup
+                className="d-flex justify-content-between align-items-start"
+                id="cookingToolsGroup"
+              >
                 {/*Cooking Tools*/}
                 {/*For the person creating the response,
                   make it so that it will create the multiple listgroup.items
@@ -56,52 +57,86 @@ export default function name() {
                   */}
                 <ListGroup.Item
                   as="li"
-                  className="d-flex justify-content-between align-items-start"
+                  className="d-flex justify-content-around align-items-start"
                 >
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Tool</div>
-                    Description
+                  <div className="me-auto">
+                    <div className="fw-bold">Cooking Tool</div>
                   </div>
-                  <Badge bg="primary" pill>
+                  <Badge bg="primary" id="amount" pill>
                     Amount
                   </Badge>
                 </ListGroup.Item>
               </ListGroup>
             </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="d-flex">
+                <div className="mr-auto p-2 fw-bold">Cooking Time</div>
+              </div>
+              <div className="d-flex">
+                <Badge
+                  bg="primary"
+                  className="align-self-end"
+                  id="cookingTime"
+                  pill
+                >
+                  x minutes/hours
+                </Badge>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
+              <div className="fw-bold">Ingredients</div>
+              <ListGroup
+                className="d-flex justify-content-between align-items-start"
+                id="ingredientsGroup"
+              >
+                {/*Ingredients*/}
+                {/*For the person creating the response,
+                  make it so that it will create the multiple listgroup.items
+                  so that it is more adaptive and does not
+                  require the amount of items to be hardcoded
+                  */}
+                <ListGroup.Item
+                  as="li"
+                  className="d-flex justify-content-around align-items-start"
+                >
+                  <div className="me-auto">
+                    <div className="fw-bold">Ingredient</div>
+                  </div>
+                  <Badge bg="primary" id="amount" pill>
+                    Amount
+                  </Badge>
+                </ListGroup.Item>
+              </ListGroup>
+            </ListGroup.Item>
+            <ListGroup.Item as="li">
+              <div className="fw-bold">Instructions</div>
+              <ListGroup
+                className="d-flex justify-content-between align-items-start"
+                id="instructionsGroup"
+              >
+                {/*Ingredients*/}
+                {/*For the person creating the response,
+                  make it so that it will create the multiple listgroup.items
+                  so that it is more adaptive and does not
+                  require the amount of items to be hardcoded
+                  */}
+                <ListGroup.Item
+                  as="li"
+                  className="d-flex justify-content-around align-items-start"
+                >
+                  <div className="me-auto">
+                    <div className="fw-bold">Step x</div>
+                    <p>Enter Description Here</p>
+                  </div>
+                </ListGroup.Item>
+              </ListGroup>
+            </ListGroup.Item>
           </ListGroup>
-        </div>
-      </Stack>
-      {/*this <Image /> tag is from remix-image
-      it's easier to use to add in responsive images
-      Here's a website that shows its usage
-      https://bestofreactjs.com/repo/Josh-McFarlin-remix-image
-      I recommend to find other sources if you don't understand this part*/}
-      <Image />
-      <Stack gap={2} direction="horizontal" className="col-md-5 mx-auto">
-        <div>
-          <h2>Ingredients</h2>
-          <ListGroup variant="flush">
-            {/*For the person creating the response,
-            make it so that it will create the multiple listgroup.items
-            so that it is more adaptive and does not
-            require the amount of items to be hardcoded
-            */}
-            <ListGroup.Item> x amount of ingredient</ListGroup.Item>
-          </ListGroup>
-        </div>
-
-        <div>
-          <h2>Instructions</h2>
-          <ListGroup variant="flush">
-            {/*For the person creating the response,
-            make it so that it will create the multiple listgroup.items
-            so that it is more adaptive and does not
-            require the amount of items to be hardcoded
-            */}
-            <ListGroup.Item>instruction here</ListGroup.Item>
-          </ListGroup>
-        </div>
-      </Stack>
+        </Container>
+      </div>
     </Stack>
   );
 }
