@@ -1,5 +1,6 @@
 import { Card, Col, Row } from "react-bootstrap";
 import { LoaderFunction, json, useLoaderData } from "remix";
+import SearchByTitle from "~/components/searchBar";
 import { parseToInt } from "~/utils/parseString";
 import {
   RecipeDetails,
@@ -74,6 +75,7 @@ export default function Index() {
 
   return (
     <div className="container">
+      <SearchByTitle/>
       <Row xs={1} md={3} className="g-5 mt-3 mb-3">
         {Array.from({ length: 9 }).map((_, idx) => (
           <Col>
