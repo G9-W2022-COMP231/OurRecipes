@@ -73,6 +73,7 @@ export default function Index() {
   const data = useLoaderData<LoaderData>();
 
   return (
+
     <>
       <SearchByTitle />
       <div className="container">
@@ -106,7 +107,6 @@ export default function Index() {
         </Row>
       </div>
     </>
-
     //Code before Recipe List UI was implemented
     // <div className="container">
     //   <ul>

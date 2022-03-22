@@ -59,6 +59,7 @@ function Document({ children }: DocumentProps): JSX.Element {
       <body>
         <SSRProvider>
           <Navigation />
+          <SearchByTitle />
           {children}
         </SSRProvider>
         <ScrollRestoration />
