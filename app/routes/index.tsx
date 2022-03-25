@@ -67,6 +67,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 };
 
+/**
+ * React component for UI for this page
+ */
 export default function Index() {
   const data = useLoaderData<LoaderData>();
   let recipes: Recipe[] = data.recipes;
