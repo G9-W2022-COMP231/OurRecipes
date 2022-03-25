@@ -1,7 +1,7 @@
 import { Button, Container, Image, ListGroup, Stack } from "react-bootstrap";
 import default_pfp from "~/images/blank_profile.png";
 
-export default function id() {
+export default function Profile() {
   return (
     <Stack gap={3} direction="vertical">
       {/* Here is the title for the page */}
