@@ -1,5 +1,5 @@
 import { Button, Container, Image, ListGroup, Stack } from "react-bootstrap";
-import { LoaderFunction, json } from "remix";
+import { LoaderFunction, json, useLoaderData } from "remix";
 import default_pfp from "~/images/blank_profile.png";
 
 /**
@@ -28,6 +28,8 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Profile() {
+  const data = useLoaderData<LoaderData>();
+
   return (
     <Stack gap={3} direction="vertical">
       {/* Here is the title for the page */}
@@ -55,7 +57,12 @@ export default function Profile() {
             >
               <div className="ms-2 me-auto">
                 <div className="fw-bold">Display Name</div>
-                <p id="displayName">name</p>
+                <p
+                  id="displayName"
+                  className={data.user.displayName ? "" : "text-muted"}
+                >
+                  {data.user.displayName ?? "Name not set"}
+                </p>
               </div>
             </ListGroup.Item>
             <ListGroup.Item
@@ -64,7 +71,7 @@ export default function Profile() {
             >
               <div className="ms-2 me-auto">
                 <div className="fw-bold">Email Address</div>
-                <p id="emailAddress">email</p>
+                <p id="emailAddress">{data.user.email}</p>
               </div>
             </ListGroup.Item>
           </ListGroup>
