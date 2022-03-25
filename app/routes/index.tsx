@@ -19,10 +19,7 @@ interface MainData {
 /**
  * The data returned by the loader in case of any input validation errors
  */
-interface ErrorData {
-  status: "error";
-  message: string;
-}
+
 /**
  * The data returned by the loader for searching by title
  */
