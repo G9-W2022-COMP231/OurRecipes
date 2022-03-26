@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 export interface UserData {
   email: String;
   password: String;
-  displayName: String;
+  displayName?: String;
 }
 
 const UserSchema = new mongoose.Schema<UserData>({
