@@ -13,11 +13,7 @@ import {
   createSessionAndRedirect,
   getUser,
 } from "~/utils/auth.server";
-import {
-  FieldValidationResult,
-  validateEmail,
-  validateStringRaw,
-} from "~/utils/inputValidation";
+import { validateEmail, validateStringRaw } from "~/utils/inputValidation";
 
 export function links() {
   return [{ rel: "stylesheet", href: loginStyles }];
@@ -37,9 +33,11 @@ export const loader: LoaderFunction = async ({ request }) => {
  */
 interface ActionData {
   error?: string;
-  email: FieldValidationResult;
-  password: FieldValidationResult;
+  email?: string;
+  password?: string;
 }
+
+const LOGIN_FAIL_MESSAGE = "Login failed";
 
 /**
  * Server-side handler of non-GET requests to this page
@@ -48,21 +46,26 @@ export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
 
   // Input validation
+  const email = validateEmail(form.get("email"));
+  const password = validateStringRaw(form.get("password"));
+
+  // Make the data beforehand for convenience
   const data: ActionData = {
-    email: validateEmail(form.get("email")),
-    password: validateStringRaw(form.get("password")),
+    error: LOGIN_FAIL_MESSAGE,
+    email: email.value,
+    password: password.value,
   };
 
   // Return 400 bad request response if there are any errors
-  if (Object.values(data).some((result) => result.error)) {
+  if (email.error || password.error) {
     return json<ActionData>(data, 400);
   }
 
   // Due to how the validation functions are written, email and password are
   // guaranteed to exist if there were no errors
-  const user = await checkLogin(data.email.value!, data.password.value!);
+  const user = await checkLogin(email.value!, password.value!);
   if (!user) {
-    return json<ActionData>({ ...data, error: "Invalid credentials" }, 400);
+    return json<ActionData>(data, 400);
   }
 
   return createSessionAndRedirect(user._id.toString(), "/account");
@@ -85,7 +88,7 @@ export default function Login() {
               id="email-input"
               name="email"
               placeholder="Enter your email"
-              defaultValue={data?.email.value}
+              defaultValue={data?.email}
             />
           </div>
           <div className="input">
@@ -94,7 +97,7 @@ export default function Login() {
               id="password-input"
               name="password"
               placeholder="Enter your password"
-              defaultValue={data?.password.value}
+              defaultValue={data?.password}
             />
           </div>
           <button type="submit" className="btn btn-primary">
