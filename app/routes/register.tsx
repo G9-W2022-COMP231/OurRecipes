@@ -22,6 +22,7 @@ interface ActionData {
 export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData();
 
+  // Input validation
   const data: ActionData = {
     name: optional(validateString)(form.get("name")),
     email: validateEmail(form.get("email")),

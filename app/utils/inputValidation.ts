@@ -49,7 +49,7 @@ export const optional =
   (input) => {
     if (input === null || typeof input === "undefined") return {};
     const result = v(input);
-    if (result.error) result.error += " or null";
+    if (result.error) result.error += ", or null";
     return result;
   };
 
@@ -60,6 +60,15 @@ export const validateString: Validator = (input: unknown) => {
   if (typeof input !== "string") return { error: "must be a string" };
   const value = validator.trim(input);
   return { value };
+};
+
+/**
+ * Validator that only checks if the value is a string and leaves the value
+ * untouched
+ */
+export const validateStringRaw: Validator = (input: unknown) => {
+  if (typeof input !== "string") return { error: "must be a string" };
+  return { value: input };
 };
 
 /**
