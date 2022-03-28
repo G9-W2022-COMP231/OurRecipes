@@ -1,7 +1,5 @@
-import { CatchValue } from "@remix-run/react/transition";
-import React from "react";
 import { useState } from "react";
-import { Badge, Col, Form, InputGroup, Row } from "react-bootstrap";
+import { Form, InputGroup } from "react-bootstrap";
 import {
   Link,
   LoaderFunction,
@@ -9,7 +7,6 @@ import {
   json,
   useLoaderData,
 } from "remix";
-import AdvancedSearch from "~/components/advanced-search";
 import RecipeList, { Recipe, recipeForClient } from "~/components/recipe-list";
 import { parseToInt } from "~/utils/parseString";
 import { searchRecipes } from "~/utils/spoonacular.server";
@@ -128,7 +125,7 @@ export default function Search(): JSX.Element {
     <div className="container">
       {/* An example of how to set up the form */}
       {/* Of course, don't follow this; this is a terrible example */}
-      <Form method="get">
+      <Form as={RemixForm} method="get">
         <div className="Search-UI">
           <div className="search">
             <input
@@ -162,6 +159,11 @@ export default function Search(): JSX.Element {
             Saved filters
           </button>
         </div>
+
+        {status === "error" && (
+          <p className="alert alert-danger">{data.message}</p>
+        )}
+
         <div className="ingredients">
           <h3>Ingredients</h3>
           {/* Included Ingredients UI */}
@@ -242,11 +244,6 @@ export default function Search(): JSX.Element {
           </Form.Group>
         </div>
       </Form>
-
-      {/* An example of how to detect and show errors */}
-      {status === "error" && (
-        <p className="alert alert-danger">{data.message}</p>
-      )}
 
       {process.env.NODE_ENV !== "production" && status === "search" && (
         <Link to=".">Clear URL Search Params</Link>
