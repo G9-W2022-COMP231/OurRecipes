@@ -43,6 +43,15 @@ const sessionStorage = createCookieSessionStorage({
 const getCurrentSession = (request: Request) =>
   sessionStorage.getSession(request.headers.get("Cookie"));
 
+  export const clearLoginSession = async (request: Request) => {
+    const session = await getCurrentSession(request);
+    return redirect("/login", {
+      headers: {
+        "Set-Cookie": await sessionStorage.destroySession(session),
+      },
+    });
+  }
+
 /**
  * Create a brand-new session for the given user and redirect to the given path
  *

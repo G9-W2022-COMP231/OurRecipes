@@ -30,17 +30,14 @@ export default function Navigation(): JSX.Element {
               Register
             </NavLink>
           </Nav>
-          {/*
-          When implemented authentication
           <Nav className="ms-auto">
             <NavLink to="/profile/:id" className="nav-link">
               Profile
             </NavLink>
-            <button className="nav-link" onClick={handleLogout}>
+            <NavLink to="/logout" className="nav-link">
               Logout
-            </button>
+            </NavLink>
           </Nav>
-  ;*/}
         </Navbar.Collapse>
       </Container>
     </Navbar>
