@@ -31,7 +31,7 @@ export default function Navigation(): JSX.Element {
             </NavLink>
           </Nav>
           <Nav className="ms-auto">
-            <NavLink to="/profile/:id" className="nav-link">
+            <NavLink to="/account" className="nav-link">
               Profile
             </NavLink>
           </Nav>
