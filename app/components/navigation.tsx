@@ -34,9 +34,6 @@ export default function Navigation(): JSX.Element {
             <NavLink to="/profile/:id" className="nav-link">
               Profile
             </NavLink>
-            <NavLink to="/logout" className="nav-link">
-              Logout
-            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
