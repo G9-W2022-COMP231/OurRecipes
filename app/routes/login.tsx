@@ -81,14 +81,18 @@ export const action: ActionFunction = async ({ request }) => {
  */
 export default function Login() {
   const data = useActionData<ActionData>();
-  const { state } = useTransition();
+  const { state, type } = useTransition();
+
+  // The "actionRedirect" is when the user is being redirected after a
+  // successful request for login
+  const isLoading = state === "submitting" || type === "actionRedirect";
 
   return (
     <div className="container">
       <div className="content">
         <h1>Login</h1>
         <Form method="post">
-          <fieldset disabled={state === "submitting"}>
+          <fieldset disabled={isLoading}>
             <div className="input">
               <input
                 type="email"
@@ -109,7 +113,7 @@ export default function Login() {
                 defaultValue={data?.password}
               />
             </div>
-            {state === "submitting" ? (
+            {isLoading ? (
               // Show the loading spinner if the form is being submitted
               <div className="d-flex justify-content-center">
                 <div className="spinner-border text-primary mt-3" role="status">
