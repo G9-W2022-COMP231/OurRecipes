@@ -25,19 +25,23 @@ export function links() {
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request);
   if (user) throw redirect("/account");
-  return {};
+  return null;
 };
 
 /**
  * Structure of the data that can be returned by the action
+ *
+ * The user is redirected to another page on success. Therefore, the returned
+ * data is always an error.
  */
 interface ActionData {
-  error?: string;
+  error: string;
   email?: string;
   password?: string;
 }
 
-const LOGIN_FAIL_MESSAGE = "Login failed";
+const LOGIN_FAIL_MESSAGE =
+  "Invalid credentials. Please check your email and password.";
 
 /**
  * Server-side handler of non-GET requests to this page
@@ -88,6 +92,7 @@ export default function Login() {
               id="email-input"
               name="email"
               placeholder="Enter your email"
+              required
               defaultValue={data?.email}
             />
           </div>
@@ -97,9 +102,15 @@ export default function Login() {
               id="password-input"
               name="password"
               placeholder="Enter your password"
+              required
               defaultValue={data?.password}
             />
           </div>
+          {data && (
+            <div className="alert alert-danger mt-3 mb-0" role="alert">
+              {data.error}
+            </div>
+          )}
           <button type="submit" className="btn btn-primary">
             Login
           </button>
