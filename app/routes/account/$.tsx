@@ -1,3 +1,6 @@
+/**
+ * Page not found
+ */
 export default function NotFound(): JSX.Element {
   return (
     <>

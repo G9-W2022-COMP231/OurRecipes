@@ -92,14 +92,11 @@ export default function Profile() {
       </Stack>
 
       <section
-        className="container mx-3 mx-sm-auto mt-3 px-0 py-3 border"
+        className="container mx-3 mx-sm-auto mt-3 px-0 py-3 border rounded-3"
         aria-label="Details"
       >
-        <nav
-          className="border-bottom px-3 px-md-4"
-          style={{ overflowX: "auto", overflowY: "hidden" }}
-        >
-          <ul className="nav nav-tabs flex-nowrap border-0">
+        <nav className="border-bottom px-3 px-md-4">
+          <ul className="nav nav-tabs border-0">
             <li className="nav-item">
               <NavLink className="nav-link" to="." end>
                 Home
