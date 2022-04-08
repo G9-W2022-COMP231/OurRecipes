@@ -25,18 +25,12 @@ export interface UserInstanceMethods {
   defaultCollection: (session?: ClientSession) => Promise<CollectionDoc>;
 }
 
-type UserModelType = mongoose.Model<
-  UserData, // Type of data
-  {}, // Query helpers
-  UserInstanceMethods, // Instance methods
-  {} // Virtuals
->;
+type UserModelType = mongoose.Model<UserData, {}, UserInstanceMethods>;
 
 const UserSchema = new mongoose.Schema<
-  UserData, // Type of data
-  UserModelType, // Model type
-  UserInstanceMethods, // Instance methods
-  {} // Query helpers
+  UserData,
+  UserModelType,
+  UserInstanceMethods
 >({
   email: {
     type: String,
