@@ -7,6 +7,7 @@ import {
   json,
   redirect,
   useActionData,
+  useLoaderData,
 } from "remix";
 import Collection from "~/models/Collection.server";
 import { requireUser } from "~/utils/auth.server";
@@ -19,8 +20,8 @@ import {
  * Server-side handler of GET requests
  */
 export const loader: LoaderFunction = async () => {
-  // TODO
-  return null;
+  const collections = await Collection.find({});
+  return json<any>({ collections });
 };
 
 interface ActionDataBase<Status extends string, OpType extends string> {
@@ -119,6 +120,14 @@ export const action: ActionFunction = async ({ request }) => {
  */
 export default function Collections(): JSX.Element {
   const actionData = useActionData<ActionData>();
+  const data = useLoaderData<any>();
+
+  const styles = {
+    collectionContainer: {
+      border: "1px solid lightgray",
+      borderRadius: "10px",
+    },
+  };
 
   // NOTE: Probably put a list of collections on the left side with each item
   // being a link to the collection page, and render the child page using the
@@ -146,7 +155,17 @@ export default function Collections(): JSX.Element {
           <Button type="submit">Add Collection</Button>
         </fieldset>
       </Form>
-
+      <br />
+      <br />
+      <div style={styles.collectionContainer}>
+        <h3>Your Collections: </h3>
+        <hr />
+        <ul>
+          {data?.collections?.map?.((c, i) => {
+            return <li>{c.name}</li>;
+          })}
+        </ul>
+      </div>
       <Outlet />
     </>
   );
