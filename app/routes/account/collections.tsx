@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Col, Nav, Row } from "react-bootstrap";
 import {
   ActionFunction,
   Form,
@@ -176,7 +176,25 @@ export default function Collections(): JSX.Element {
           )}
         </fieldset>
       </Form>
-      <Outlet />
+      <Row>
+        <Col sm={3}>
+          <Nav variant="pills" className="flex-column">
+            <Nav.Item>
+              <NavLink className="nav-link" to="tab1">
+                Tab 1
+              </NavLink>
+            </Nav.Item>
+            <Nav.Item>
+              <NavLink className="nav-link" to="tab1">
+                Tab 2
+              </NavLink>
+            </Nav.Item>
+          </Nav>
+        </Col>
+        <Col sm={9}>
+          <Outlet />
+        </Col>
+      </Row>
     </>
   );
 }
