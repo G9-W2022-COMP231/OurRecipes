@@ -1,4 +1,4 @@
-import { Button, Col, Nav, Row } from "react-bootstrap";
+import { Button, Card, Col, Nav, Row } from "react-bootstrap";
 import {
   ActionFunction,
   Form,
@@ -139,10 +139,9 @@ export default function Collections(): JSX.Element {
         <fieldset disabled={isLoading}>
           <div className="input-group mb-3">
             <input type="hidden" name="type" value="add" />
-            <label htmlFor="new-name" className="form-label">
+            <label htmlFor="new-name" className="form-label me-3">
               Collection Name:
             </label>
-            <br></br>
             <input
               type="text"
               name="name"
@@ -177,22 +176,24 @@ export default function Collections(): JSX.Element {
         </fieldset>
       </Form>
       <Row>
-        <Col sm={3}>
-          <Nav variant="pills" className="flex-column">
+        <Col sm={3} className=" mt-5">
+          <Nav className="flex-column border">
             <Nav.Item>
               <NavLink className="nav-link" to="tab1">
-                Tab 1
+                {/*These will be replaced by the name of the collection the user has created */}
+                Collection 1
               </NavLink>
             </Nav.Item>
             <Nav.Item>
               <NavLink className="nav-link" to="tab1">
-                Tab 2
+                Collection 2
               </NavLink>
             </Nav.Item>
           </Nav>
         </Col>
         <Col sm={9}>
           <Outlet />
+          {/* Demo for how the recipes inside the collection pages are supposed to look like */}
         </Col>
       </Row>
     </>
