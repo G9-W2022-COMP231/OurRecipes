@@ -1,13 +1,15 @@
-import { Button } from "react-bootstrap";
+import { Button, Col, Nav, Row } from "react-bootstrap";
 import {
   ActionFunction,
   Form,
   LoaderFunction,
+  NavLink,
   Outlet,
   json,
   redirect,
   useActionData,
   useLoaderData,
+  useTransition,
 } from "remix";
 import Collection from "~/models/Collection.server";
 import { requireUser } from "~/utils/auth.server";
@@ -119,6 +121,7 @@ export const action: ActionFunction = async ({ request }) => {
  * UI of this page
  */
 export default function Collections(): JSX.Element {
+  // data for the error intake for add collection
   const actionData = useActionData<ActionData>();
   const data = useLoaderData<any>();
 
@@ -129,6 +132,10 @@ export default function Collections(): JSX.Element {
     },
   };
 
+  // Transition for the intake input of the user for add collection
+  const { state, type } = useTransition();
+  const isLoading = state === "submitting" || type === "actionRedirect";
+
   // NOTE: Probably put a list of collections on the left side with each item
   // being a link to the collection page, and render the child page using the
   // <Outlet /> component.
@@ -138,12 +145,13 @@ export default function Collections(): JSX.Element {
       <h3>Collections</h3>
       <Form method="post">
         {/* for easy disabling of all fields */}
-        <fieldset>
-          <input type="hidden" name="type" value="add" />
-          <div className="mb-3">
+        <fieldset disabled={isLoading}>
+          <div className="input-group mb-3">
+            <input type="hidden" name="type" value="add" />
             <label htmlFor="new-name" className="form-label">
-              Collection Name
+              Collection Name:
             </label>
+            <br></br>
             <input
               type="text"
               name="name"
@@ -151,22 +159,50 @@ export default function Collections(): JSX.Element {
               className="form-control"
               required
             />
+            <Button
+              className="btn btn-outline-secondary"
+              type="submit"
+              id="button-addon2"
+              style={{ color: "white" }}
+            >
+              Add Collection
+            </Button>
           </div>
-          <Button type="submit">Add Collection</Button>
+          {isLoading ? (
+            // Show the loading spinner if the form is being submitted
+            <div className="d-flex justify-content-center">
+              <div className="spinner-border text-primary mt-3" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          ) : (
+            // When not loading, show the error  if it exists
+            actionData?.status === "error" && (
+              <p className="alert alert-danger" role="alert">
+                {actionData.error}
+              </p>
+            )
+          )}
         </fieldset>
       </Form>
-      <br />
-      <br />
-      <div style={styles.collectionContainer}>
-        <h3>Your Collections: </h3>
-        <hr />
-        <ul>
-          {data?.collections?.map?.((c, i) => {
-            return <li>{c.name}</li>;
-          })}
-        </ul>
-      </div>
-      <Outlet />
+      <Row style={styles.collectionContainer}>
+        <Col sm={3}>
+          <Nav variant="pills" className="flex-column">
+            {data?.collections?.map?.((c, i) => {
+              return (
+                <Nav.Item>
+                  <NavLink className="nav-link" to={c._id}>
+                    {c.name}
+                  </NavLink>
+                </Nav.Item>
+              );
+            })}
+          </Nav>
+        </Col>
+        <Col sm={9}>
+          <Outlet />
+        </Col>
+      </Row>
     </>
   );
 }
