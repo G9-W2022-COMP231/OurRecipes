@@ -8,6 +8,7 @@ import {
   json,
   redirect,
   useActionData,
+  useLoaderData,
   useTransition,
 } from "remix";
 import Collection from "~/models/Collection.server";
@@ -21,8 +22,8 @@ import {
  * Server-side handler of GET requests
  */
 export const loader: LoaderFunction = async () => {
-  // TODO
-  return null;
+  const collections = await Collection.find({});
+  return json<any>({ collections });
 };
 
 interface ActionDataBase<Status extends string, OpType extends string> {
@@ -122,6 +123,14 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Collections(): JSX.Element {
   // data for the error intake for add collection
   const actionData = useActionData<ActionData>();
+  const data = useLoaderData<any>();
+
+  const styles = {
+    collectionContainer: {
+      border: "1px solid lightgray",
+      borderRadius: "10px",
+    },
+  };
 
   // Transition for the intake input of the user for add collection
   const { state, type } = useTransition();
@@ -175,20 +184,18 @@ export default function Collections(): JSX.Element {
           )}
         </fieldset>
       </Form>
-      <Row>
+      <Row style={styles.collectionContainer}>
         <Col sm={3} className=" mt-5">
-          <Nav className="flex-column border">
-            <Nav.Item>
-              <NavLink className="nav-link" to="tab1">
-                {/*These will be replaced by the name of the collection the user has created */}
-                Collection 1
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink className="nav-link" to="tab1">
-                Collection 2
-              </NavLink>
-            </Nav.Item>
+          <Nav variant="pills" className="flex-column border">
+            {data?.collections?.map?.((c, i) => {
+              return (
+                <Nav.Item>
+                  <NavLink className="nav-link" to={c._id}>
+                    {c.name}
+                  </NavLink>
+                </Nav.Item>
+              );
+            })}
           </Nav>
         </Col>
         <Col sm={9}>
